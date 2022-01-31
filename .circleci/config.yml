@@ -1,0 +1,76 @@
+version: 2.1
+
+executors:
+  python:
+    working_directory: ~/footing
+    docker:
+      - image: opus10/circleci-public-python-library
+        environment:
+          # Ensure makefile commands are not wrapped in "docker run"
+          MAKE_CMD_WRAPPER: ''
+
+jobs:
+  test:
+    executor: python
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "poetry.lock" }}
+      - run: make dependencies
+      - run: make full-test-suite
+      - save_cache:
+          key: v1-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.local
+            - /home/circleci/.cache/pypoetry/virtualenvs
+            - /home/circleci/footing/.venv
+            - /home/circleci/footing/.tox
+
+  lint:
+    executor: python
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "poetry.lock" }}
+      - run: make dependencies
+      - run: make lint
+
+  check_changelog:
+    executor: python
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-{{ checksum "poetry.lock" }}
+      - run: make dependencies
+      - run: poetry run git tidy-log origin/master..
+      - run: make tidy-lint
+
+  deploy:
+    executor: python
+    steps:
+      - checkout
+      - run: ssh-add -D
+      - run: echo "${GITHUB_DEVOPS_PRIVATE_SSH_KEY_BASE64}" | base64 --decode | ssh-add - > /dev/null
+      - restore_cache:
+          key: v1-{{ checksum "poetry.lock" }}
+      - run: make dependencies
+      - run: poetry run python devops.py deploy
+
+workflows:
+  version: 2
+  on_commit:
+    jobs:
+      - test
+      - lint
+      - check_changelog:
+          filters:
+            branches:
+              ignore: master
+      - deploy:
+          context: public-python-library
+          requires:
+            - test
+            - lint
+          filters:
+            branches:
+              only: master
