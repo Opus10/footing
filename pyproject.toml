@@ -33,6 +33,12 @@ documentation = "https://footing.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.7.0,<4"
+click = ">=6.7"
+cookiecutter = ">=1.6.0"
+pyyaml = ">=3.12"
+python-gitlab = ">=2.10.1"
+requests = ">=2.13.0"
+tldextract = ">=3.1.2"
 
 [tool.poetry.dev-dependencies]
 black = "22.1.0"
@@ -43,9 +49,16 @@ flake8-import-order = "0.18.1"
 flake8-logging-format = "0.6.0"
 flake8-mutable = "1.2.0"
 git-tidy = "1.1.1"
+pyfakefs = "3.1.0"
 pytest = "6.2.5"
 pytest-cov = "3.0.0"
+pytest-mock = "3.7.0"
+responses = "0.17.0"
 Sphinx = "4.4.0"
+sphinx-click = "3.0.3"
 sphinx-rtd-theme = "1.0.0"
 temple = "*"
 tox = "3.24.5"
+
+[tool.poetry.scripts]
+footing = 'footing.cli:main'
