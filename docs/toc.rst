@@ -6,5 +6,8 @@ Table of Contents
 
    index
    installation
+   creating_templates
+   cli
+   package
    release_notes
    contributing
