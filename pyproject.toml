@@ -12,7 +12,7 @@ name = "footing"
 packages = [
   { include = "footing" }
 ]
-version = "0.0.0"
+version = "0.1.0"
 description = "Keep templated projects in sync with their template"
 authors = ["Opus 10 Engineering"]
 classifiers = [
