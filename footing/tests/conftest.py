@@ -24,7 +24,5 @@ def footing_env(github_env):
 @pytest.fixture
 def responses():
     """Ensure no http requests happen and allow for mocking out responses"""
-    with responses_lib.RequestsMock(
-        assert_all_requests_are_fired=False
-    ) as mocked_requests:
+    with responses_lib.RequestsMock(assert_all_requests_are_fired=False) as mocked_requests:
         yield mocked_requests

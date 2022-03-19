@@ -1,11 +1,26 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 79
+line-length = 99
 target-version = ['py37']
 skip-string-normalization = true
+
+[tool.coverage.run]
+branch = true
+source = ["footing"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "pass",
+    "pytest.mark.skip"
+]
+show_missing = true
+fail_under = 100
 
 [tool.poetry]
 name = "footing"
@@ -62,3 +77,8 @@ tox = "3.24.5"
 
 [tool.poetry.scripts]
 footing = 'footing.cli:main'
+
+[tool.pytest.ini_options]
+xfail_strict = true
+testpaths = "footing/tests"
+norecursedirs = ".venv"

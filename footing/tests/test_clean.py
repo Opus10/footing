@@ -39,9 +39,7 @@ def test_clean(
         else:
             raise AssertionError
 
-    mocker.patch(
-        'footing.clean._get_current_branch', return_value='current_branch'
-    )
+    mocker.patch('footing.clean._get_current_branch', return_value='current_branch')
     mocker.patch('footing.check.in_git_repo')
     mocker.patch(
         'footing.check._has_branch',

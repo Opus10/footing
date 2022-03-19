@@ -38,9 +38,7 @@ def _generate_files(repo_dir, config, template, version):
     generated before any hooks run. This is important to ensure that hooks can also
     perform any actions involving footing.yaml
     """
-    with unittest.mock.patch(
-        'cookiecutter.generate.run_hook', side_effect=_patched_run_hook
-    ):
+    with unittest.mock.patch('cookiecutter.generate.run_hook', side_effect=_patched_run_hook):
         cc_generate.generate_files(
             repo_dir=repo_dir,
             context={
@@ -74,17 +72,11 @@ def setup(template, version=None):
     ).format(repo_path)
     print(msg)
 
-    cc_repo_dir, config = footing.utils.get_cookiecutter_config(
-        template, version=version
-    )
+    cc_repo_dir, config = footing.utils.get_cookiecutter_config(template, version=version)
 
     if not version:
         with footing.utils.cd(cc_repo_dir):
-            ret = footing.utils.shell(
-                'git rev-parse HEAD', stdout=subprocess.PIPE
-            )
+            ret = footing.utils.shell('git rev-parse HEAD', stdout=subprocess.PIPE)
             version = ret.stdout.decode('utf-8').strip()
 
-    _generate_files(
-        repo_dir=cc_repo_dir, config=config, template=template, version=version
-    )
+    _generate_files(repo_dir=cc_repo_dir, config=config, template=template, version=version)

@@ -18,17 +18,13 @@ import footing.forge
         "token",
         pytest.param(
             "",
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidEnvironmentError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidEnvironmentError),
         ),
     ],
 )
 def test_gitlab_get_client(gitlab_api_token, mocker):
     """Tests footing.forget.Gitlab.get_client()"""
-    mocker.patch.dict(
-        os.environ, {"GITLAB_API_TOKEN": gitlab_api_token}, clear=True
-    )
+    mocker.patch.dict(os.environ, {"GITLAB_API_TOKEN": gitlab_api_token}, clear=True)
 
     assert footing.forge.Gitlab().get_client("https://gitlab.com")
 
@@ -49,18 +45,13 @@ def test_gitlab_get_gitlab_url_and_repo_path():
         pytest.param(
             "gitlab.com",
             None,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidGitlabGroupError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidGitlabGroupError),
         ),
     ],
 )
 def test_gitlab_get_gitlab_url_and_group(forge, expected_results):
     """Tests footing.forge.Gitlab._get_gitlab_url_and_group"""
-    assert (
-        footing.forge.Gitlab()._get_gitlab_url_and_group(forge)
-        == expected_results
-    )
+    assert footing.forge.Gitlab()._get_gitlab_url_and_group(forge) == expected_results
 
 
 @pytest.mark.parametrize(
@@ -73,9 +64,7 @@ def test_gitlab_get_gitlab_url_and_group(forge, expected_results):
         ),
     ],
 )
-def test_github_get_latest_template_version_api(
-    http_status, mocker, responses
-):
+def test_github_get_latest_template_version_api(http_status, mocker, responses):
     """Tests footing.forge.Github._get_latest_template_version"""
     api = "https://api.github.com/repos/owner/template/commits"
     responses.add(responses.GET, api, json=[{"sha": "v1"}], status=http_status)
@@ -101,18 +90,12 @@ def test_github_get_latest_template_version_api(
 )
 def test_get_latest_template_version_w_ssh(mocker, stdout, stderr, expected):
     """Tests footing.forge._get_latest_template_version_w_ssh"""
-    ls_remote_return = subprocess.CompletedProcess(
-        [], returncode=0, stdout=stdout, stderr=stderr
-    )
-    mock_shell = mocker.patch(
-        "footing.utils.shell", autospec=True, return_value=ls_remote_return
-    )
+    ls_remote_return = subprocess.CompletedProcess([], returncode=0, stdout=stdout, stderr=stderr)
+    mock_shell = mocker.patch("footing.utils.shell", autospec=True, return_value=ls_remote_return)
 
     assert footing.forge._get_latest_template_version_w_ssh("t") == expected
     cmd = "git ls-remote t | grep HEAD | cut -f1"
-    mock_shell.assert_called_once_with(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    mock_shell.assert_called_once_with(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 @pytest.mark.parametrize(
@@ -165,9 +148,7 @@ def test_github_get_latest_template_version(
         pytest.param(
             "invalid",
             None,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidForgeError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidForgeError),
         ),
     ],
 )
@@ -181,9 +162,7 @@ def test_from_path(root, expected_client_cls):
     [
         ({"no_link_keys": "value"}, {}),
         (
-            {
-                "link": '<https://url.com>; rel="next", <https://url2.com>; rel="last"'
-            },
+            {"link": '<https://url.com>; rel="next", <https://url2.com>; rel="last"'},
             {"next": "https://url.com", "last": "https://url2.com"},
         ),
     ],

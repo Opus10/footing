@@ -19,9 +19,7 @@ def test_shell(cmd, check, stdin, stdout, stderr, mocker):
     """Tests footing.utils.shell"""
     mock_run = mocker.patch('subprocess.run', autospec=True)
 
-    footing.utils.shell(
-        cmd, check=check, stdin=stdin, stdout=stdout, stderr=stderr
-    )
+    footing.utils.shell(cmd, check=check, stdin=stdin, stdout=stdout, stderr=stderr)
 
     mock_run.assert_called_once_with(
         cmd, shell=True, check=check, stdin=stdin, stdout=stdout, stderr=stderr
@@ -41,9 +39,7 @@ def test_cd(fs):
 def test_read_footing_config(fs):
     """Tests footing.utils.read_footing_config with a fake file system"""
     footing_config_yaml = (
-        '_version: version\n'
-        'repo_name: repo_name\n'
-        '_extensions: [jinja2_time.TimeExtension]\n'
+        '_version: version\n' 'repo_name: repo_name\n' '_extensions: [jinja2_time.TimeExtension]\n'
     )
     fs.CreateFile('footing.yaml', contents=footing_config_yaml)
 
@@ -114,9 +110,7 @@ def test_get_cookiecutter_config(default_config, mocker):
         return_value=prompted_context,
     )
 
-    assert footing.utils.get_cookiecutter_config(
-        't', default_config=default_config
-    ) == (  # noqa
+    assert footing.utils.get_cookiecutter_config('t', default_config=default_config) == (  # noqa
         'repo_dir',
         prompted_context,
     )

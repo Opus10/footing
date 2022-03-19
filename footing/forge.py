@@ -51,16 +51,12 @@ def _get_latest_template_version_w_ssh(template):
     Tries to obtain the latest template version using an SSH key
     """
     cmd = "git ls-remote {} | grep HEAD | cut -f1".format(template)
-    ret = footing.utils.shell(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    ret = footing.utils.shell(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stderr = ret.stderr.decode("utf-8").strip()
     stdout = ret.stdout.decode("utf-8").strip()
     if stderr and not stdout:
         raise RuntimeError(
-            (
-                'An unexpected error happened when running "{}". (stderr="{}"'
-            ).format(cmd, stderr)
+            ('An unexpected error happened when running "{}". (stderr="{}"').format(cmd, stderr)
         )
     return stdout
 
@@ -187,9 +183,7 @@ class Github(Forge):
         )
 
         if resp.status_code == requests.codes.unprocessable_entity and forge:
-            raise footing.exceptions.InvalidForgeError(
-                'Invalid Github forge - "{}"'.format(forge)
-            )
+            raise footing.exceptions.InvalidForgeError('Invalid Github forge - "{}"'.format(forge))
         resp.raise_for_status()
 
         resp_data = resp.json()
@@ -198,9 +192,9 @@ class Github(Forge):
         while True:
             repositories.update(
                 {
-                    "git@github.com:{}.git".format(
-                        repo["repository"]["full_name"]
-                    ): repo["repository"]
+                    "git@github.com:{}.git".format(repo["repository"]["full_name"]): repo[
+                        "repository"
+                    ]
                     for repo in resp_data["items"]
                 }
             )
