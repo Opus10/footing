@@ -31,9 +31,7 @@ def test_ls(forge, template, github_query, mocker):
 
     results = footing.ls.ls(forge, template=template)
 
-    mock_code_search.assert_called_once_with(
-        mocker.ANY, github_query, forge=forge
-    )
+    mock_code_search.assert_called_once_with(mocker.ANY, github_query, forge=forge)
     assert results == collections.OrderedDict(
         [
             ('repo1', 'description 1'),

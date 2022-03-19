@@ -32,27 +32,19 @@ def test_is_git_ssh_path_invalid(invalid_template_path):
     [
         pytest.param(
             255,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.NotInGitRepoError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.NotInGitRepoError),
         ),
         0,
     ],
 )
 def test_in_git_repo(revparse_returncode, mocker):
     """Tests footing.check.not_in_git_repo"""
-    revparse_return = subprocess.CompletedProcess(
-        [], returncode=revparse_returncode
-    )
-    mock_shell = mocker.patch(
-        'footing.utils.shell', autospec=True, return_value=revparse_return
-    )
+    revparse_return = subprocess.CompletedProcess([], returncode=revparse_returncode)
+    mock_shell = mocker.patch('footing.utils.shell', autospec=True, return_value=revparse_return)
 
     assert footing.check.in_git_repo() is None
 
-    mock_shell.assert_called_once_with(
-        'git rev-parse', stderr=subprocess.DEVNULL, check=False
-    )
+    mock_shell.assert_called_once_with('git rev-parse', stderr=subprocess.DEVNULL, check=False)
 
 
 @pytest.mark.parametrize(
@@ -67,18 +59,12 @@ def test_in_git_repo(revparse_returncode, mocker):
 )
 def test_not_in_git_repo(revparse_returncode, mocker):
     """Tests footing.check.not_in_git_repo"""
-    revparse_return = subprocess.CompletedProcess(
-        [], returncode=revparse_returncode
-    )
-    mock_shell = mocker.patch(
-        'footing.utils.shell', autospec=True, return_value=revparse_return
-    )
+    revparse_return = subprocess.CompletedProcess([], returncode=revparse_returncode)
+    mock_shell = mocker.patch('footing.utils.shell', autospec=True, return_value=revparse_return)
 
     assert footing.check.not_in_git_repo() is None
 
-    mock_shell.assert_called_once_with(
-        'git rev-parse', stderr=subprocess.DEVNULL, check=False
-    )
+    mock_shell.assert_called_once_with('git rev-parse', stderr=subprocess.DEVNULL, check=False)
 
 
 @pytest.mark.parametrize(
@@ -87,26 +73,18 @@ def test_not_in_git_repo(revparse_returncode, mocker):
         0,
         pytest.param(
             255,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InDirtyRepoError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InDirtyRepoError),
         ),
     ],
 )
 def test_in_clean_repo(revparse_returncode, mocker):
     """Tests footing.check.in_clean_repo"""
-    revparse_return = subprocess.CompletedProcess(
-        [], returncode=revparse_returncode
-    )
-    mock_shell = mocker.patch(
-        'footing.utils.shell', autospec=True, return_value=revparse_return
-    )
+    revparse_return = subprocess.CompletedProcess([], returncode=revparse_returncode)
+    mock_shell = mocker.patch('footing.utils.shell', autospec=True, return_value=revparse_return)
 
     assert footing.check.in_clean_repo() is None
 
-    mock_shell.assert_called_once_with(
-        'git diff-index --quiet HEAD --', check=False
-    )
+    mock_shell.assert_called_once_with('git diff-index --quiet HEAD --', check=False)
 
 
 @pytest.mark.parametrize(
@@ -115,20 +93,14 @@ def test_in_clean_repo(revparse_returncode, mocker):
         128,
         pytest.param(
             0,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.ExistingBranchError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.ExistingBranchError),
         ),
     ],
 )
 def test_not_has_branch(revparse_returncode, mocker):
     """Tests footing.check.not_has_branch"""
-    revparse_return = subprocess.CompletedProcess(
-        [], returncode=revparse_returncode
-    )
-    mock_shell = mocker.patch(
-        'footing.utils.shell', autospec=True, return_value=revparse_return
-    )
+    revparse_return = subprocess.CompletedProcess([], returncode=revparse_returncode)
+    mock_shell = mocker.patch('footing.utils.shell', autospec=True, return_value=revparse_return)
 
     assert footing.check.not_has_branch('somebranch') is None
 
@@ -146,16 +118,12 @@ def test_not_has_branch(revparse_returncode, mocker):
         pytest.param(
             ['v1', 'v2'],
             ['v2', 'v3'],
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidEnvironmentError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidEnvironmentError),
         ),
         pytest.param(
             [],
             ['v2'],
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidEnvironmentError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidEnvironmentError),
         ),
         (['v2'], ['v2']),
         (['v1', 'v2'], ['v1', 'v2']),
@@ -177,9 +145,7 @@ def test_has_env_vars(envvar_names, check_envvar_names, mocker):
     [
         pytest.param(
             'regular_file',
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.InvalidFootingProjectError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.InvalidFootingProjectError),
         ),
         footing.constants.FOOTING_CONFIG_FILE,
     ],

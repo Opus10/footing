@@ -19,7 +19,7 @@ GITHUB_API_TOKEN_ENV_VAR = 'GITHUB_API_TOKEN'
 GITLAB_API_TOKEN_ENV_VAR = 'GITLAB_API_TOKEN'
 
 #: Footing docs URL
-FOOTING_DOCS_URL = 'https://github.com/CloverHealth/footing'
+FOOTING_DOCS_URL = 'https://github.com/Opus10/footing'
 
 #: The temporary branches used for updates
 UPDATE_BRANCH_NAME = '_footing_update'

@@ -24,9 +24,7 @@ def get_repo_path(template):
 
 def shell(cmd, check=True, stdin=None, stdout=None, stderr=None):
     """Runs a subprocess shell with check=True by default"""
-    return subprocess.run(
-        cmd, shell=True, check=check, stdin=stdin, stdout=stdout, stderr=stderr
-    )
+    return subprocess.run(cmd, shell=True, check=check, stdin=stdin, stdout=stdout, stderr=stderr)
 
 
 @contextlib.contextmanager
@@ -48,16 +46,12 @@ def read_footing_config():
 
 def write_footing_config(footing_config, template, version):
     """Writes the footing YAML configuration"""
-    with open(
-        footing.constants.FOOTING_CONFIG_FILE, 'w'
-    ) as footing_config_file:
+    with open(footing.constants.FOOTING_CONFIG_FILE, 'w') as footing_config_file:
         versioned_config = {
             **footing_config,
             **{'_version': version, '_template': template},
         }
-        yaml.dump(
-            versioned_config, footing_config_file, Dumper=yaml.SafeDumper
-        )
+        yaml.dump(versioned_config, footing_config_file, Dumper=yaml.SafeDumper)
 
 
 def get_cookiecutter_config(template, default_config=None, version=None):
@@ -103,9 +97,7 @@ def set_cmd_env_var(value):
                 if previous_cmd_env_var is None:
                     del os.environ[footing.constants.FOOTING_ENV_VAR]
                 else:
-                    os.environ[
-                        footing.constants.FOOTING_ENV_VAR
-                    ] = previous_cmd_env_var
+                    os.environ[footing.constants.FOOTING_ENV_VAR] = previous_cmd_env_var
 
             return ret_val
 

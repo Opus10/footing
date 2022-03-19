@@ -66,18 +66,14 @@ def mock_successful_exit(mock_exit):
         ),
     ],
 )
-def test_main(
-    subcommand, args, expected_function, exp_call_args, exp_call_kwargs, mocker
-):
+def test_main(subcommand, args, expected_function, exp_call_args, exp_call_kwargs, mocker):
     """Verify calling the CLI subcommands works as expected"""
     mocker.patch.object(sys, 'argv', ['footing', subcommand] + args)
     mock_expected_func = mocker.patch(expected_function, autospec=True)
 
     footing.cli.main()
 
-    mock_expected_func.assert_called_once_with(
-        *exp_call_args, **exp_call_kwargs
-    )
+    mock_expected_func.assert_called_once_with(*exp_call_args, **exp_call_kwargs)
 
 
 @pytest.mark.usefixtures('mock_successful_exit')
@@ -96,9 +92,7 @@ def test_main_w_version(mocker, capsys):
 def test_main_no_args(mocker, capsys):
     """Test calling the CLI with no options"""
     mocker.patch.object(sys, 'argv', ['footing'])
-    mocker.patch.object(
-        click.Context, 'get_help', autospec=True, return_value='help_text'
-    )
+    mocker.patch.object(click.Context, 'get_help', autospec=True, return_value='help_text')
 
     footing.cli.main()
 
@@ -113,9 +107,7 @@ def test_main_no_args(mocker, capsys):
         pytest.param(
             None,
             False,
-            marks=pytest.mark.xfail(
-                raises=footing.exceptions.NotUpToDateWithTemplateError
-            ),
+            marks=pytest.mark.xfail(raises=footing.exceptions.NotUpToDateWithTemplateError),
         ),
         (None, True),
         ('version', True),
@@ -123,9 +115,7 @@ def test_main_no_args(mocker, capsys):
 )
 def test_update_check(version, up_to_date_return, capsys, mocker):
     """Verifies checking for updates when calling footing update -c"""
-    mocker.patch.object(
-        sys, 'argv', ['footing', 'update', '-c', '-v', version]
-    )
+    mocker.patch.object(sys, 'argv', ['footing', 'update', '-c', '-v', version])
     mock_up_to_date = mocker.patch(
         'footing.update.up_to_date',
         autospec=True,

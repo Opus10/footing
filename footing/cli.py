@@ -26,11 +26,7 @@ import footing.update
 @click.option('--version', is_flag=True, help='Show version')
 def main(ctx, version):
     if version:
-        print(
-            'footing {}'.format(
-                pkg_resources.get_distribution('footing').version
-            )
-        )
+        print('footing {}'.format(pkg_resources.get_distribution('footing').version))
     elif not ctx.invoked_subcommand:
         print(ctx.get_help())
 
@@ -90,9 +86,7 @@ def update(check, enter_parameters, version):
             )
             raise footing.exceptions.NotUpToDateWithTemplateError(msg)
     else:
-        footing.update.update(
-            new_version=version, enter_parameters=enter_parameters
-        )
+        footing.update.update(new_version=version, enter_parameters=enter_parameters)
 
 
 @main.command()

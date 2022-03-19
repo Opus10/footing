@@ -13,9 +13,7 @@ def is_git_ssh_path(template_path):
     Note that the git SSH url must be in the form as provided from Github or from
     ``footing ls``. For example, ``git@github.com:user/template.git``.
     """
-    if not template_path.startswith(
-        'git@github.com:'
-    ) or not template_path.endswith('.git'):
+    if not template_path.startswith('git@github.com:') or not template_path.endswith('.git'):
         raise footing.exceptions.InvalidTemplatePathError(
             'The template path must be a git SSH url (e.g. "git@github.com:user/template.git")'
         )
@@ -23,9 +21,7 @@ def is_git_ssh_path(template_path):
 
 def _in_git_repo():
     """Returns True if inside a git repo, False otherwise"""
-    ret = footing.utils.shell(
-        'git rev-parse', stderr=subprocess.DEVNULL, check=False
-    )
+    ret = footing.utils.shell('git rev-parse', stderr=subprocess.DEVNULL, check=False)
     return ret.returncode == 0
 
 
@@ -70,9 +66,7 @@ def _has_branch(branch):
 def not_has_branch(branch):
     """Raises `ExistingBranchError` if the specified branch exists."""
     if _has_branch(branch):
-        msg = 'Cannot proceed while {} branch exists; remove and try again.'.format(
-            branch
-        )
+        msg = 'Cannot proceed while {} branch exists; remove and try again.'.format(branch)
         raise footing.exceptions.ExistingBranchError(msg)
 
 
@@ -89,7 +83,5 @@ def has_env_vars(*env_vars):
 def is_footing_project():
     """Raises `InvalidFootingProjectError` if repository is not a footing project"""
     if not os.path.exists(footing.constants.FOOTING_CONFIG_FILE):
-        msg = 'No {} file found in repository.'.format(
-            footing.constants.FOOTING_CONFIG_FILE
-        )
+        msg = 'No {} file found in repository.'.format(footing.constants.FOOTING_CONFIG_FILE)
         raise footing.exceptions.InvalidFootingProjectError(msg)

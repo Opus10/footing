@@ -27,9 +27,7 @@ def test_setup(version, expected_revparse_called, expected_version, mocker):
         return_value=('.', config),
     )
 
-    revparse_return = subprocess.CompletedProcess(
-        [], stdout=b'latest_version', returncode=0
-    )
+    revparse_return = subprocess.CompletedProcess([], stdout=b'latest_version', returncode=0)
     mock_generate_files = mocker.patch(
         'footing.setup.cc_generate.generate_files',
         autospec=True,

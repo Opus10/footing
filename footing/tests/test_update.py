@@ -16,12 +16,7 @@ def test_get_latest_template_version(mocker):
         autospec=True,
         return_value='v1',
     )
-    assert (
-        footing.update._get_latest_template_version(
-            'git@github.com:org/template.git'
-        )
-        == 'v1'
-    )
+    assert footing.update._get_latest_template_version('git@github.com:org/template.git') == 'v1'
 
 
 @pytest.mark.parametrize(
@@ -35,17 +30,13 @@ def test_cookiecutter_configs_have_changed(
     old_config, new_config, expected_has_changed, mocker, responses
 ):
     """Tests footing.update._cookiecutter_configs_have_changed"""
-    mock_clone = mocker.patch(
-        'footing.update.cc_vcs.clone', autospec=True, return_value='path'
-    )
+    mock_clone = mocker.patch('footing.update.cc_vcs.clone', autospec=True, return_value='path')
     mock_open = mocker.patch('footing.update.open')
     mock_open().read.side_effect = [old_config, new_config]
     mock_call = mocker.patch('subprocess.check_call', autospec=True)
     template = 'git@github.com:org/template.git'
 
-    config_has_changed = footing.update._cookiecutter_configs_have_changed(
-        template, 'old', 'new'
-    )
+    config_has_changed = footing.update._cookiecutter_configs_have_changed(template, 'old', 'new')
     assert config_has_changed == expected_has_changed
     mock_clone.assert_called_once_with(template, 'old', mocker.ANY)
     assert mock_call.call_count == 1
@@ -59,9 +50,7 @@ def test_apply_template(mocker, existing_files):
         autospec=True,
         return_value='basepath',
     )
-    mock_list = mocker.patch(
-        'os.listdir', autospec=True, return_value=['a', 'b']
-    )
+    mock_list = mocker.patch('os.listdir', autospec=True, return_value=['a', 'b'])
     mocker.patch('os.path.isdir', autospec=True, side_effect=[True, False])
     mocker.patch('os.path.exists', autospec=True, return_value=existing_files)
     mock_shutil_ct = mocker.patch('shutil.copytree', autospec=True)
@@ -69,9 +58,7 @@ def test_apply_template(mocker, existing_files):
     mock_rmtree = mocker.patch('shutil.rmtree', autospec=True)
     mock_remove = mocker.patch('os.remove', autospec=True)
 
-    footing.update._apply_template(
-        't', '.', checkout='v1', extra_context={'c': 'tx'}
-    )
+    footing.update._apply_template('t', '.', checkout='v1', extra_context={'c': 'tx'})
 
     mock_cc.assert_called_once_with(
         't',
@@ -122,10 +109,7 @@ def test_up_to_date(
         return_value=latest_version,
     )
 
-    assert (
-        footing.update.up_to_date(version=supplied_version)
-        == expected_up_to_date
-    )
+    assert footing.update.up_to_date(version=supplied_version) == expected_up_to_date
 
 
 @pytest.mark.parametrize(
@@ -135,9 +119,7 @@ def test_up_to_date(
         ('v1', 'v1', 'v0'),
     ],
 )
-def test_update_w_up_to_date(
-    version, supplied_version, latest_version, mocker
-):
+def test_update_w_up_to_date(version, supplied_version, latest_version, mocker):
     """Tests footing.update.update when the template is already up to date"""
     mocker.patch('footing.check.not_has_branch', autospec=True)
     mocker.patch('footing.check.in_git_repo', autospec=True)
@@ -194,9 +176,7 @@ def test_update_w_out_of_date(
         autospec=True,
         return_value=latest_version,
     )
-    mock_apply_template = mocker.patch(
-        'footing.update._apply_template', autospec=True
-    )
+    mock_apply_template = mocker.patch('footing.update._apply_template', autospec=True)
     mock_cc_configs_have_changed = mocker.patch(
         'footing.update._cookiecutter_configs_have_changed',
         autospec=True,
@@ -209,13 +189,9 @@ def test_update_w_out_of_date(
         return_value=('repo', footing_config),
     )
     mock_shell = mocker.patch('footing.utils.shell', autospec=True)
-    mock_write_config = mocker.patch(
-        'footing.utils.write_footing_config', autospec=True
-    )
+    mock_write_config = mocker.patch('footing.utils.write_footing_config', autospec=True)
 
-    footing.update.update(
-        enter_parameters=enter_parameters, old_template=old_template
-    )
+    footing.update.update(enter_parameters=enter_parameters, old_template=old_template)
 
     assert mock_input.called == cc_configs_changed or old_template is not None
     assert mock_get_cc_config.called == (
@@ -235,9 +211,7 @@ def test_update_w_out_of_date(
             extra_context=footing_config,
         ),
     ]
-    mock_write_config.assert_called_once_with(
-        footing_config, template, latest_version
-    )
+    mock_write_config.assert_called_once_with(footing_config, template, latest_version)
     if not old_template:
         mock_cc_configs_have_changed.assert_called_once_with(
             template, current_version, latest_version
@@ -246,9 +220,7 @@ def test_update_w_out_of_date(
         assert not mock_cc_configs_have_changed.called
 
     assert mock_shell.call_args_list == [
-        mocker.call(
-            'git checkout -b _footing_update', stderr=subprocess.DEVNULL
-        ),
+        mocker.call('git checkout -b _footing_update', stderr=subprocess.DEVNULL),
         mocker.call(
             'git checkout --orphan _footing_update_temp',
             stderr=subprocess.DEVNULL,
@@ -264,19 +236,14 @@ def test_update_w_out_of_date(
         ),
         mocker.call('git checkout _footing_update', stderr=subprocess.DEVNULL),
         mocker.call(
-            'git merge -s ours --no-edit --allow-unrelated-histories '
-            '_footing_update_temp',
+            'git merge -s ours --no-edit --allow-unrelated-histories ' '_footing_update_temp',
             stderr=subprocess.DEVNULL,
         ),
-        mocker.call(
-            'git checkout _footing_update_temp', stderr=subprocess.DEVNULL
-        ),
+        mocker.call('git checkout _footing_update_temp', stderr=subprocess.DEVNULL),
         mocker.call('git rm -rf .', stdout=subprocess.DEVNULL),
         mocker.call('git add .'),
         mocker.call(
-            'git commit --no-verify -m "Update template to version {}"'.format(
-                latest_version
-            ),
+            'git commit --no-verify -m "Update template to version {}"'.format(latest_version),
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         ),
@@ -293,7 +260,5 @@ def test_update_w_out_of_date(
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         ),
-        mocker.call(
-            'git branch -D _footing_update_temp', stdout=subprocess.DEVNULL
-        ),
+        mocker.call('git branch -D _footing_update_temp', stdout=subprocess.DEVNULL),
     ]
