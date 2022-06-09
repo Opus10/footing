@@ -1,4 +1,8 @@
 # Changelog
+## 0.1.2 (2022-06-09)
+### Trivial
+  - Only install cookiecutter<2.0 because of breaking API changes [Wes Kendall, 4a8b979]
+
 ## 0.1.1 (2022-03-19)
 ### Trivial
   - Updated with latest template, including new local development changes [Wes Kendall, 1127f3c]
