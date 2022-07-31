@@ -1,4 +1,8 @@
 # Changelog
+## 0.1.3 (2022-07-30)
+### Trivial
+  - Updated with the latest Python template, fixing doc builds [Wes Kendall, d6a836a]
+
 ## 0.1.2 (2022-06-09)
 ### Trivial
   - Only install cookiecutter<2.0 because of breaking API changes [Wes Kendall, 4a8b979]
