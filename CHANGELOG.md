@@ -1,5 +1,9 @@
 # Changelog
-## 0.1.3 (2022-07-30)
+## 0.1.4 (2022-08-20)
+### Trivial
+  - Fix release note rendering and code formatting changes [Wes Kendall, 6ba97f2]
+
+## 0.1.3 (2022-07-31)
 ### Trivial
   - Updated with the latest Python template, fixing doc builds [Wes Kendall, d6a836a]
 
