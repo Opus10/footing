@@ -21,12 +21,12 @@ def _patched_run_hook(hook_name, project_dir, context):
     This patched version ensures that the footing.yaml file is created before
     any cookiecutter hooks are executed
     """
-    if hook_name == 'post_gen_project':
+    if hook_name == "post_gen_project":
         with footing.utils.cd(project_dir):
             footing.utils.write_footing_config(
-                context['cookiecutter'],
-                context['template'],
-                context['version'],
+                context["cookiecutter"],
+                context["template"],
+                context["version"],
             )
     return cc_hooks.run_hook(hook_name, project_dir, context)
 
@@ -38,20 +38,20 @@ def _generate_files(repo_dir, config, template, version):
     generated before any hooks run. This is important to ensure that hooks can also
     perform any actions involving footing.yaml
     """
-    with unittest.mock.patch('cookiecutter.generate.run_hook', side_effect=_patched_run_hook):
+    with unittest.mock.patch("cookiecutter.generate.run_hook", side_effect=_patched_run_hook):
         cc_generate.generate_files(
             repo_dir=repo_dir,
             context={
-                'cookiecutter': config,
-                'template': template,
-                'version': version,
+                "cookiecutter": config,
+                "template": template,
+                "version": version,
             },
             overwrite_if_exists=False,
-            output_dir='.',
+            output_dir=".",
         )
 
 
-@footing.utils.set_cmd_env_var('setup')
+@footing.utils.set_cmd_env_var("setup")
 def setup(template, version=None):
     """Sets up a new project from a template
 
@@ -67,8 +67,8 @@ def setup(template, version=None):
 
     repo_path = footing.utils.get_repo_path(template)
     msg = (
-        'You will be prompted for the parameters of your new project.'
-        ' Please read the docs at https://github.com/{} before entering parameters.'
+        "You will be prompted for the parameters of your new project."
+        " Please read the docs at https://github.com/{} before entering parameters."
     ).format(repo_path)
     print(msg)
 
@@ -76,7 +76,7 @@ def setup(template, version=None):
 
     if not version:
         with footing.utils.cd(cc_repo_dir):
-            ret = footing.utils.shell('git rev-parse HEAD', stdout=subprocess.PIPE)
-            version = ret.stdout.decode('utf-8').strip()
+            ret = footing.utils.shell("git rev-parse HEAD", stdout=subprocess.PIPE)
+            version = ret.stdout.decode("utf-8").strip()
 
     _generate_files(repo_dir=cc_repo_dir, config=config, template=template, version=version)

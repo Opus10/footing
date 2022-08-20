@@ -19,7 +19,7 @@ def get_repo_path(template):
 
     The repo path is in the form of "owner/repo"
     """
-    return template[:-4].split(':')[1]
+    return template[:-4].split(":")[1]
 
 
 def shell(cmd, check=True, stdin=None, stdout=None, stderr=None):
@@ -46,10 +46,10 @@ def read_footing_config():
 
 def write_footing_config(footing_config, template, version):
     """Writes the footing YAML configuration"""
-    with open(footing.constants.FOOTING_CONFIG_FILE, 'w') as footing_config_file:
+    with open(footing.constants.FOOTING_CONFIG_FILE, "w") as footing_config_file:
         versioned_config = {
             **footing_config,
-            **{'_version': version, '_template': template},
+            **{"_version": version, "_template": template},
         }
         yaml.dump(versioned_config, footing_config_file, Dumper=yaml.SafeDumper)
 
@@ -70,15 +70,15 @@ def get_cookiecutter_config(template, default_config=None, version=None):
     config_dict = cc_config.get_user_config()
     repo_dir, _ = cc_repository.determine_repo_dir(
         template=template,
-        abbreviations=config_dict['abbreviations'],
-        clone_to_dir=config_dict['cookiecutters_dir'],
+        abbreviations=config_dict["abbreviations"],
+        clone_to_dir=config_dict["cookiecutters_dir"],
         checkout=version,
         no_input=True,
     )
-    context_file = os.path.join(repo_dir, 'cookiecutter.json')
+    context_file = os.path.join(repo_dir, "cookiecutter.json")
     context = cc_generate.generate_context(
         context_file=context_file,
-        default_context={**config_dict['default_context'], **default_config},
+        default_context={**config_dict["default_context"], **default_config},
     )
     return repo_dir, cc_prompt.prompt_for_config(context)
 

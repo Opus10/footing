@@ -23,21 +23,21 @@ import footing.update
 
 @click.group(invoke_without_command=True)
 @click.pass_context
-@click.option('--version', is_flag=True, help='Show version')
+@click.option("--version", is_flag=True, help="Show version")
 def main(ctx, version):
     if version:
-        print('footing {}'.format(pkg_resources.get_distribution('footing').version))
+        print("footing {}".format(pkg_resources.get_distribution("footing").version))
     elif not ctx.invoked_subcommand:
         print(ctx.get_help())
 
 
 @main.command()
-@click.argument('template', nargs=1, required=True)
+@click.argument("template", nargs=1, required=True)
 @click.option(
-    '-v',
-    '--version',
+    "-v",
+    "--version",
     default=None,
-    help='Git SHA or branch of template to use for creation',
+    help="Git SHA or branch of template to use for creation",
 )
 def setup(template, version):
     """
@@ -49,18 +49,18 @@ def setup(template, version):
 
 
 @main.command()
-@click.option('-c', '--check', is_flag=True, help='Check to see if up to date')
+@click.option("-c", "--check", is_flag=True, help="Check to see if up to date")
 @click.option(
-    '-e',
-    '--enter-parameters',
+    "-e",
+    "--enter-parameters",
     is_flag=True,
-    help='Enter template parameters on update',
+    help="Enter template parameters on update",
 )
 @click.option(
-    '-v',
-    '--version',
+    "-v",
+    "--version",
     default=None,
-    help='Git SHA or branch of template to use for update',
+    help="Git SHA or branch of template to use for update",
 )
 def update(check, enter_parameters, version):
     """
@@ -78,10 +78,10 @@ def update(check, enter_parameters, version):
     """
     if check:
         if footing.update.up_to_date(version=version):
-            print('Footing package is up to date')
+            print("Footing package is up to date")
         else:
             msg = (
-                'This footing package is out of date with the latest template.'
+                "This footing package is out of date with the latest template."
                 ' Update your package by running "footing update" and commiting changes.'
             )
             raise footing.exceptions.NotUpToDateWithTemplateError(msg)
@@ -90,13 +90,13 @@ def update(check, enter_parameters, version):
 
 
 @main.command()
-@click.argument('forge', nargs=1, required=True)
-@click.argument('template', nargs=1, required=False)
+@click.argument("forge", nargs=1, required=True)
+@click.argument("template", nargs=1, required=False)
 @click.option(
-    '-l',
-    '--long-format',
+    "-l",
+    "--long-format",
     is_flag=True,
-    help='Print extended information about results',
+    help="Print extended information about results",
 )
 def ls(forge, template, long_format):
     """
@@ -111,7 +111,7 @@ def ls(forge, template, long_format):
     results = footing.ls.ls(forge, template=template)
     for ssh_path, description in results.items():
         if long_format:
-            print(ssh_path, '-', description)
+            print(ssh_path, "-", description)
         else:
             print(ssh_path)
 
@@ -125,12 +125,12 @@ def clean():
 
 
 @main.command()
-@click.argument('template', nargs=1, required=True)
+@click.argument("template", nargs=1, required=True)
 @click.option(
-    '-v',
-    '--version',
+    "-v",
+    "--version",
     default=None,
-    help='Git SHA or branch of template to use for update',
+    help="Git SHA or branch of template to use for update",
 )
 def switch(template, version):
     """

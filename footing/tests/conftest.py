@@ -10,7 +10,7 @@ import footing.constants
 @pytest.fixture
 def github_env(mocker):
     """Sets Github environment variables"""
-    gh_env = {footing.constants.GITHUB_API_TOKEN_ENV_VAR: 'test_gh_token'}
+    gh_env = {footing.constants.GITHUB_API_TOKEN_ENV_VAR: "test_gh_token"}
     mocker.patch.dict(os.environ, gh_env)
     return gh_env
 
