@@ -7,17 +7,17 @@ import footing.exceptions
 
 
 @pytest.mark.parametrize(
-    'update_branch_exists, temp_update_branch_exists, expected_shell_cmds',
+    "update_branch_exists, temp_update_branch_exists, expected_shell_cmds",
     [
         (False, False, []),
-        (True, False, [mock.call('git branch -D _footing_update')]),
-        (False, True, [mock.call('git branch -D _footing_update_temp')]),
+        (True, False, [mock.call("git branch -D _footing_update")]),
+        (False, True, [mock.call("git branch -D _footing_update_temp")]),
         (
             True,
             True,
             [
-                mock.call('git branch -D _footing_update'),
-                mock.call('git branch -D _footing_update_temp'),
+                mock.call("git branch -D _footing_update"),
+                mock.call("git branch -D _footing_update_temp"),
             ],
         ),
     ],
@@ -39,14 +39,14 @@ def test_clean(
         else:
             raise AssertionError
 
-    mocker.patch('footing.clean._get_current_branch', return_value='current_branch')
-    mocker.patch('footing.check.in_git_repo')
+    mocker.patch("footing.clean._get_current_branch", return_value="current_branch")
+    mocker.patch("footing.check.in_git_repo")
     mocker.patch(
-        'footing.check._has_branch',
+        "footing.check._has_branch",
         autospec=True,
         side_effect=branch_exists_side_effect,
     )
-    mock_shell = mocker.patch('footing.utils.shell', autospec=True)
+    mock_shell = mocker.patch("footing.utils.shell", autospec=True)
     footing.clean.clean()
     assert mock_shell.call_args_list == expected_shell_cmds
 
@@ -60,9 +60,9 @@ def test_get_current_branch():
 
 def test_clean_bad_current_branch(mocker):
     """Tests footing.clean.clean when on a branch that will be deleted"""
-    mocker.patch('footing.check.in_git_repo')
+    mocker.patch("footing.check.in_git_repo")
     mocker.patch(
-        'footing.clean._get_current_branch',
+        "footing.clean._get_current_branch",
         return_value=footing.constants.UPDATE_BRANCH_NAME,
     )
 

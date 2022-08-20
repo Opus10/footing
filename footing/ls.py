@@ -7,7 +7,7 @@ Lists all footing templates and projects spun up with those templates
 import footing.forge
 
 
-@footing.utils.set_cmd_env_var('ls')
+@footing.utils.set_cmd_env_var("ls")
 def ls(forge, template=None):
     """Lists all templates under a root path or list all projects spun up under
     a root path and a template path.

@@ -10,8 +10,8 @@ import footing.utils
 
 def _get_current_branch():
     """Determine the current git branch"""
-    result = footing.utils.shell('git rev-parse --abbrev-ref HEAD', stdout=subprocess.PIPE)
-    return result.stdout.decode('utf8').strip()
+    result = footing.utils.shell("git rev-parse --abbrev-ref HEAD", stdout=subprocess.PIPE)
+    return result.stdout.decode("utf8").strip()
 
 
 def clean():
@@ -35,6 +35,6 @@ def clean():
         raise footing.exceptions.InvalidCurrentBranchError(err_msg)
 
     if footing.check._has_branch(update_branch):
-        footing.utils.shell('git branch -D {}'.format(update_branch))
+        footing.utils.shell("git branch -D {}".format(update_branch))
     if footing.check._has_branch(temp_update_branch):
-        footing.utils.shell('git branch -D {}'.format(temp_update_branch))
+        footing.utils.shell("git branch -D {}".format(temp_update_branch))
