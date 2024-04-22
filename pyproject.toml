@@ -72,6 +72,7 @@ mkdocs-material = "9.5.18"
 mkdocstrings-python = "1.9.2"
 setuptools = "*"
 poetry-core = "*"
+typing-extensions = "4.11.0"
 
 [tool.poetry.scripts]
 footing = 'footing.cli:main'
