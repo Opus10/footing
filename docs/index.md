@@ -1,4 +1,4 @@
-# Footing - Keeping projects in sync with templates
+# footing - Keep projects in sync with templates
 
 Footing provides templated project creation and management.
 
