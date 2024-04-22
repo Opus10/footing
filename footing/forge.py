@@ -2,8 +2,11 @@
 Utilities for accessing and traversing different git forges, along with pulling down
 remote templates.
 
-Currently Github and Gitlab are supported
+Currently Github and Gitlab are supported.
 """
+
+from __future__ import annotations
+
 import abc
 import collections
 import os
@@ -17,6 +20,9 @@ import requests
 import tldextract
 
 import footing.check
+import footing.constants
+import footing.exceptions
+import footing.utils
 
 
 def from_path(path):
@@ -43,7 +49,7 @@ def from_path(path):
 
 def get_name_from_ssh_path(template_path):
     matches = re.search(r"\/([^/]+)\.git$", template_path)
-    return matches.group(1)
+    return matches.group(1) if matches else ""
 
 
 def _get_latest_template_version_w_ssh(template):
@@ -71,13 +77,13 @@ class Forge(metaclass=abc.ABCMeta):
     """
 
     @abc.abstractmethod
-    def ls(self, path, template=None):
+    def ls(self, path, template=None) -> dict[str, str]:
         """Implements ls for the forge"""
         pass
 
     @property
     @abc.abstractmethod
-    def api_token_env_var_name(self):
+    def api_token_env_var_name(self) -> str:
         """Returns the environment variable name for configuring an API token"""
         pass
 
@@ -161,15 +167,15 @@ class Github(Forge):
                 links[rel] = url
         return links
 
-    def _code_search(self, query, forge=None):
+    def _code_search(self, query: str, forge: str | None = None) -> dict[str, dict[str, str]]:
         """Performs a Github API code search
 
         Args:
-            query (str): The query sent to Github's code search
-            root (str, optional): The root being searched in Github
+            query: The query sent to Github's code search
+            forge: The root being searched in Github
 
         Returns:
-            dict: A dictionary of repository information keyed on the git SSH url
+            A dictionary of repository information keyed on the git SSH url
 
         Raises:
             `InvalidForgeError`: When ``forge`` is invalid
@@ -188,7 +194,7 @@ class Github(Forge):
 
         resp_data = resp.json()
 
-        repositories = collections.defaultdict(dict)
+        repositories: dict[str, dict[str, str]] = collections.defaultdict(dict)
         while True:
             repositories.update(
                 {
@@ -282,7 +288,7 @@ class Gitlab(Forge):
 
         gl = self.get_client(gitlab_url)
         project = gl.projects.get(repo_path)
-        sha = project.commits.list()[0].id
+        sha = project.commits.list()[0].id  # type: ignore
 
         return sha
 
@@ -306,9 +312,9 @@ class Gitlab(Forge):
 
         return gitlab_url, group
 
-    def ls(self, forge, template=None):  # pragma: no cover
+    def ls(self, path, template=None):  # pragma: no cover
         """Return a list of repositories under the forge path or the template (if provided)."""
-        gitlab_url, group = self._get_gitlab_url_and_group(forge)
+        gitlab_url, group = self._get_gitlab_url_and_group(path)
 
         gl = self.get_client(gitlab_url)
         if group:
@@ -318,21 +324,19 @@ class Gitlab(Forge):
         # Search for either templates (with cookiecutter.json) or projects that have been made
         # from the template. Note - advanced search must be turned on for the Gitlab instance
         if not template:
-            results = gl.search(
-                gitlab.const.SEARCH_SCOPE_BLOBS,
-                search="filename:cookiecutter.json",
+            results = gl.search(  # type: ignore
+                gitlab.const.SEARCH_SCOPE_BLOBS, search="filename:cookiecutter.json"
             )
         else:
-            results = gl.search(
-                gitlab.const.SEARCH_SCOPE_BLOBS,
-                search="{} filename:footing.yaml".format(template),
+            results = gl.search(  # type: ignore
+                gitlab.const.SEARCH_SCOPE_BLOBS, search="{} filename:footing.yaml".format(template)
             )
 
         # Fetch projects associated with search results
         gl = self.get_client(gitlab_url)
-        projects = [gl.projects.get(r["project_id"]) for r in results]
+        projects = [gl.projects.get(r["project_id"]) for r in results]  # type: ignore
 
-        return collections.OrderedDict(
+        results: dict[str, str] = collections.OrderedDict(
             sorted(
                 [
                     (
@@ -343,3 +347,4 @@ class Gitlab(Forge):
                 ]
             )
         )
+        return results

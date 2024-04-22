@@ -1,9 +1,7 @@
-"""
-footing.setup
-~~~~~~~~~~~~~
+"""Creates and initializes a project from a template."""
 
-Creates and initializes a project from a template
-"""
+from __future__ import annotations
+
 import subprocess
 import unittest.mock
 
@@ -52,15 +50,15 @@ def _generate_files(repo_dir, config, template, version):
 
 
 @footing.utils.set_cmd_env_var("setup")
-def setup(template, version=None):
+def setup(template: str, version: str | None = None) -> None:
     """Sets up a new project from a template
 
     Note that the `footing.constants.FOOTING_ENV_VAR` is set to 'setup' during the duration
     of this function.
 
     Args:
-        template (str): The git path to a template
-        version (str, optional): The version of the template to use when updating. Defaults
+        template: The git path to a template
+        version: The version of the template to use when updating. Defaults
             to the latest version
     """
     footing.check.not_in_git_repo()

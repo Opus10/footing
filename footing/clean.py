@@ -1,10 +1,10 @@
-"""
-Functions for cleaning up temporary resources used by footing
-"""
+"""Functions for cleaning up temporary resources used by footing."""
+
 import subprocess
 
 import footing.check
 import footing.constants
+import footing.exceptions
 import footing.utils
 
 
@@ -14,7 +14,7 @@ def _get_current_branch():
     return result.stdout.decode("utf8").strip()
 
 
-def clean():
+def clean() -> None:
     """Cleans up temporary resources
 
     Tries to clean up:

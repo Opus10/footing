@@ -1,14 +1,13 @@
-"""
-footing.ls
-~~~~~~~~~~
+"""Lists all footing templates and projects spun up with those templates."""
 
-Lists all footing templates and projects spun up with those templates
-"""
+from __future__ import annotations
+
 import footing.forge
+import footing.utils
 
 
 @footing.utils.set_cmd_env_var("ls")
-def ls(forge, template=None):
+def ls(forge: str, template: str | None = None) -> dict[str, str]:
     """Lists all templates under a root path or list all projects spun up under
     a root path and a template path.
 
@@ -19,13 +18,13 @@ def ls(forge, template=None):
     function.
 
     Args:
-        root (str): A root git storage path.  For example, a Github organization
+        forge: A root git storage path.  For example, a Github organization
             (github.com/Organization) or a gitlab group (gitlab.com/my/group).
-        template (str, default=None): An optional template path. If provided, the
+        template: An optional template path. If provided, the
             returned values are projects under ``root`` created using the template.
 
     Returns:
-        dict: A dictionary of repository information keyed on the url.
+        xA dictionary of repository information keyed on the url.
 
     Raises:
         `InvalidForgeError`: When ``forge`` is invalid
