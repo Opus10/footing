@@ -1,10 +1,17 @@
 # Changelog
 
+## 0.1.6 (2024-04-22)
+
+### Trivial
+
+  - Fixed issues in docs and CI builds. [Wes Kendall, 030110b]
+  - Update the README and provide a quickstart section. [Wes Kendall, fcb6eb9]
+
 ## 0.1.5 (2024-04-22)
 
 ### Trivial
 
-  - Update with latest Python template, dropping Python 3.7 support, adding 3.12 support, and migrating docs to mkdocs.. [Wes Kendall, 2e890c1]
+  - Update with latest Python template, dropping Python 3.7 support, adding 3.12 support, and migrating docs to mkdocs.. [Wes Kendall, 5259a1f]
 
 ## 0.1.4 (2022-08-20)
 
