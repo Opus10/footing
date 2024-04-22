@@ -1,4 +1,5 @@
 """Tests for footing.setup module"""
+
 import os
 import subprocess
 

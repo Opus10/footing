@@ -1,7 +1,9 @@
 _extensions:
 - jinja2_time.TimeExtension
-_template: git@github.com:Opus10/public-python-library-template.git
-_version: 5fbfe9d014bf85cc1f67a746032eef0da4f354cd
+_template: git@github.com:Opus10/python-library-template.git
+_version: 15cbf67b4eaa0a36c4eaec2c75d71eb6798c959c
+check_types_in_ci: 'False'
+is_django: 'False'
 module_name: footing
 repo_name: footing
 short_description: Keep templated projects in sync with their template

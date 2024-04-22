@@ -1,4 +1,5 @@
-"""Shared footing utilities"""
+"""Shared footing utilities."""
+
 import contextlib
 import functools
 import os

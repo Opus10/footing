@@ -1,4 +1,5 @@
 """Tests for footing.check module"""
+
 import os
 import subprocess
 
@@ -152,6 +153,6 @@ def test_has_env_vars(envvar_names, check_envvar_names, mocker):
 )
 def test_check_is_footing_project(footing_file, fs):
     """Tests update._check_is_footing_project"""
-    fs.CreateFile(footing_file)
+    fs.create_file(footing_file)
 
     assert footing.check.is_footing_project() is None

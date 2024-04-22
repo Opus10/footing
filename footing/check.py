@@ -1,4 +1,5 @@
-"""Utilities for performing checks and throwing useful error messages"""
+"""Utilities for performing checks and throwing useful error messages."""
+
 import os
 import subprocess
 

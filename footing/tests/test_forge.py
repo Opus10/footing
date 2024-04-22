@@ -1,4 +1,5 @@
 """Tests for footing.ls module"""
+
 import os
 import subprocess
 import urllib

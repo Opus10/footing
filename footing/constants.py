@@ -1,9 +1,4 @@
-"""
-footing.constants
-~~~~~~~~~~~~~~~~~
-
-Constants for footing
-"""
+"""Constants for footing."""
 
 #: The environment variable set when running any footing command. It is set to
 #: the name of the command
