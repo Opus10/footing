@@ -1,9 +1,7 @@
-"""
-footing.update
-~~~~~~~~~~~~~~
+"""Updates a footing project with the latest template."""
 
-Updates a footing project with the latest template
-"""
+from __future__ import annotations
+
 import json
 import os
 import shutil
@@ -78,17 +76,17 @@ def _get_latest_template_version(template):
 
 
 @footing.utils.set_cmd_env_var("update")
-def up_to_date(version=None):
+def up_to_date(version: str | None = None) -> bool:
     """Checks if a footing project is up to date with the repo
 
     Note that the `footing.constants.FOOTING_ENV_VAR` is set to 'update' for the duration of this
     function.
 
     Args:
-        version (str, optional): Update against this git SHA or branch of the template
+        version: Update against this git SHA or branch of the template
 
     Returns:
-        boolean: True if up to date with ``version`` (or latest version), False otherwise
+        True if up to date with ``version`` (or latest version), False otherwise
 
     Raises:
         `NotInGitRepoError`: When running outside of a git repo
@@ -117,12 +115,12 @@ def _needs_new_cc_config_for_update(old_template, old_version, new_template, new
 
 @footing.utils.set_cmd_env_var("update")
 def update(
-    old_template=None,
-    old_version=None,
-    new_template=None,
-    new_version=None,
-    enter_parameters=False,
-):
+    old_template: str | None = None,
+    old_version: str | None = None,
+    new_template: str | None = None,
+    new_version: str | None = None,
+    enter_parameters: bool = False,
+) -> bool:
     """Updates the footing project to the latest template
 
     Proceeeds in the following steps:
@@ -148,15 +146,13 @@ def update(
     before the process starts.
 
     Args:
-        old_template (str, default=None): The old template from which to update. Defaults
-            to the template in footing.yaml
-        old_version (str, default=None): The old version of the template. Defaults to
-            the version in footing.yaml
-        new_template (str, default=None): The new template for updating. Defaults to the
-            template in footing.yaml
-        new_version (str, default=None): The new version of the new template to update.
-            Defaults to the latest version of the new template
-        enter_parameters (bool, default=False): Force entering template parameters for the project
+        old_template: The old template from which to update. Defaults to the template in
+            footing.yaml.
+        old_version: The old version of the template. Defaults to the version in footing.yaml.
+        new_template: The new template for updating. Defaults to the template in footing.yaml
+        new_version: The new version of the new template to update. Defaults to the latest version
+            of the new template.
+        enter_parameters: Force entering template parameters for the project
 
     Raises:
         `NotInGitRepoError`: When not inside of a git repository
@@ -166,7 +162,7 @@ def update(
             update branch
 
     Returns:
-        boolean: True if update was performed or False if template was already up to date
+        True if update was performed or False if template was already up to date
     """
     update_branch = footing.constants.UPDATE_BRANCH_NAME
     temp_update_branch = footing.constants.TEMP_UPDATE_BRANCH_NAME

@@ -1,4 +1,5 @@
 """Tests for footing.cli module"""
+
 # pylint: disable=no-value-for-parameter
 import collections
 import sys

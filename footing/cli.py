@@ -1,15 +1,15 @@
 """
 The footing CLI contains commands for setting up, listing, and updating projects.
 
-Commands
-~~~~~~~~
+Commands:
 
-* ``footing setup`` - Sets up a new project
-* ``footing ls`` - Lists all templates and projects created with those templates
-* ``footing update`` - Updates the project to the latest template version
-* ``footing clean`` - Cleans up any temporary resources used by footing
-* ``footing switch`` - Switch a project to a different template
+* `footing setup` - Sets up a new project
+* `footing ls` - Lists all templates and projects created with those templates
+* `footing update` - Updates the project to the latest template version
+* `footing clean` - Cleans up any temporary resources used by footing
+* `footing switch` - Switch a project to a different template
 """
+
 import click
 import pkg_resources
 

@@ -1,4 +1,5 @@
 """Footing test setup and fixtures"""
+
 import os
 
 import pytest

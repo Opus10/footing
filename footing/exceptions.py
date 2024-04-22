@@ -1,9 +1,4 @@
-"""
-footing.exceptions
-~~~~~~~~~~~~~~~~~~
-
-Footing exceptions
-"""
+"""Footing exceptions."""
 
 
 class Error(Exception):

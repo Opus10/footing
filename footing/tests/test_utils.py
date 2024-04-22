@@ -1,4 +1,5 @@
 """Tests fr footing.utils module"""
+
 import os
 import subprocess
 
@@ -41,7 +42,7 @@ def test_read_footing_config(fs):
     footing_config_yaml = (
         "_version: version\n" "repo_name: repo_name\n" "_extensions: [jinja2_time.TimeExtension]\n"
     )
-    fs.CreateFile("footing.yaml", contents=footing_config_yaml)
+    fs.create_file("footing.yaml", contents=footing_config_yaml)
 
     assert footing.utils.read_footing_config() == {
         "_version": "version",

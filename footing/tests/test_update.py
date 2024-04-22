@@ -1,4 +1,5 @@
 """Tests for footing.update module"""
+
 import subprocess
 
 import pytest

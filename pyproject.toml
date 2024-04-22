@@ -2,10 +2,6 @@
 requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.black]
-line-length = 99
-target-version = ['py37']
-
 [tool.coverage.run]
 branch = true
 source = ["footing"]
@@ -16,7 +12,8 @@ exclude_lines = [
     "raise AssertionError",
     "raise NotImplementedError",
     "pass",
-    "pytest.mark.skip"
+    "pytest.mark.skip",
+    "@(typing\\.)?overload",
 ]
 show_missing = true
 fail_under = 100
@@ -36,47 +33,45 @@ classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
 ]
 license = "BSD-3-Clause"
-readme = "README.rst"
+readme = "README.md"
 homepage = "https://github.com/Opus10/footing"
 repository = "https://github.com/Opus10/footing"
 documentation = "https://footing.readthedocs.io"
 
 [tool.poetry.dependencies]
-python = ">=3.7.0,<4"
-importlib_metadata = { version = ">=4", python = "~3.7" }
+python = ">=3.8.0,<4"
 click = ">=6.7"
 cookiecutter = "<2.0.0"
-pyyaml = ">=3.12"
+pyyaml = ">=5.1.2,<=5.3.1"
 python-gitlab = ">=2.10.1"
 requests = ">=2.13.0"
 tldextract = ">=3.1.2"
 
 [tool.poetry.dev-dependencies]
-black = "22.1.0"
-flake8 = "3.9.2"
-flake8-bugbear = "22.1.11"
-flake8-comprehensions = "3.8.0"
-flake8-import-order = "0.18.1"
-flake8-logging-format = "0.6.0"
-flake8-mutable = "1.2.0"
-git-tidy = "1.1.1"
-myst-parser = "0.18.0"
-pyfakefs = "3.1.0"
-pytest = "6.2.5"
-pytest-cov = "3.0.0"
-pytest-mock = "3.7.0"
-responses = "0.17.0"
-Sphinx = "4.4.0"
-sphinx-click = "3.0.3"
-sphinx-rtd-theme = "1.0.0"
-tox = "3.24.5"
+git-tidy = "1.2.0"
+pytest = "7.4.2"
+pytest-cov = "4.1.0"
+pytest-dotenv = "0.5.2"
+pytest-mock = "3.14.0"
+pyfakefs = "5.4.1"
+responses = "0.25.0"
+tox = "4.11.3"
+ruff = "0.3.7"
+pyright = "1.1.358"
+mkdocs = "1.5.3"
+black = "24.4.0"
+mkdocs-material = "9.5.18"
+mkdocstrings-python = "1.9.2"
+setuptools = "*"
+poetry-core = "*"
 
 [tool.poetry.scripts]
 footing = 'footing.cli:main'
@@ -85,3 +80,20 @@ footing = 'footing.cli:main'
 xfail_strict = true
 testpaths = "footing/tests"
 norecursedirs = ".venv"
+
+[tool.ruff]
+lint.select = ["E", "F", "B", "I", "G", "C4"]
+line-length = 99
+target-version = "py38"
+
+[tool.pyright]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "src/experimental",
+    "src/typestubs",
+    "**/migrations/**",
+    "**/tests/**",
+]
+pythonVersion = "3.8"
+typeCheckingMode = "standard"
