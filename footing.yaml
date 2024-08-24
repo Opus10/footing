@@ -1,7 +1,7 @@
 _extensions:
 - jinja2_time.TimeExtension
 _template: git@github.com:Opus10/python-library-template.git
-_version: c35f399bd91db9ed6fa9f276f2e60023ac56bb8a
+_version: f4840f3f2382a912a6730a6520061e4fcc274ca1
 check_types_in_ci: 'False'
 is_django: 'False'
 module_name: footing

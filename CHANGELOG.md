@@ -1,45 +1,51 @@
 # Changelog
 
+## 0.1.7 (2024-08-24)
+
+ #### Changes
+
+   - Updated docs styling and testing dependencies by [@wesleykendall](https://github.com/wesleykendall) in [#17](https://github.com/Opus10/footing/pull/11).
+
 ## 0.1.6 (2024-04-22)
 
-### Trivial
+#### Trivial
 
   - Fixed issues in docs and CI builds. [Wes Kendall, 030110b]
   - Update the README and provide a quickstart section. [Wes Kendall, fcb6eb9]
 
 ## 0.1.5 (2024-04-22)
 
-### Trivial
+#### Trivial
 
   - Update with latest Python template, dropping Python 3.7 support, adding 3.12 support, and migrating docs to mkdocs.. [Wes Kendall, 5259a1f]
 
 ## 0.1.4 (2022-08-20)
 
-### Trivial
+#### Trivial
 
   - Fix release note rendering and code formatting changes [Wes Kendall, 6ba97f2]
 
 ## 0.1.3 (2022-07-31)
 
-### Trivial
+#### Trivial
 
   - Updated with the latest Python template, fixing doc builds [Wes Kendall, d6a836a]
 
 ## 0.1.2 (2022-06-09)
 
-### Trivial
+#### Trivial
 
   - Only install cookiecutter<2.0 because of breaking API changes [Wes Kendall, 4a8b979]
 
 ## 0.1.1 (2022-03-19)
 
-### Trivial
+#### Trivial
 
   - Updated with latest template, including new local development changes [Wes Kendall, 1127f3c]
 
 ## 0.1.0 (2022-01-31)
 
-### Feature
+#### Feature
 
   - Initial port of temple into "footing" [Wes Kendall, 6d334df]
 
