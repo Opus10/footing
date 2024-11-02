@@ -10,7 +10,7 @@
 
 #### Changes
 
-  - Updated docs styling and testing dependencies by [@wesleykendall](https://github.com/wesleykendall) in [#17](https://github.com/Opus10/footing/pull/11).
+  - Updated docs styling and testing dependencies by [@wesleykendall](https://github.com/wesleykendall) in [#11](https://github.com/Opus10/footing/pull/11).
 
 ## 0.1.6 (2024-04-22)
 
