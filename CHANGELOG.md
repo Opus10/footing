@@ -1,10 +1,16 @@
 # Changelog
 
+## 1.0.0 (2024-11-01)
+
+#### Changes
+
+  - Added Python 3.13 support, dropped Python 3.8 support by [@wesleykendall](https://github.com/wesleykendall) in [#12](https://github.com/Opus10/footing/pull/12).
+
 ## 0.1.7 (2024-08-24)
 
- #### Changes
+#### Changes
 
-   - Updated docs styling and testing dependencies by [@wesleykendall](https://github.com/wesleykendall) in [#17](https://github.com/Opus10/footing/pull/11).
+  - Updated docs styling and testing dependencies by [@wesleykendall](https://github.com/wesleykendall) in [#17](https://github.com/Opus10/footing/pull/11).
 
 ## 0.1.6 (2024-04-22)
 

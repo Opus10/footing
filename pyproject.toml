@@ -27,9 +27,9 @@ packages = [
 exclude = [
   "*/tests/"
 ]
-version = "0.1.7"
+version = "1.0.0"
 description = "Keep templated projects in sync with their template"
-authors = ["Opus 10 Engineering"]
+authors = ["Wes Kendall"]
 classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
